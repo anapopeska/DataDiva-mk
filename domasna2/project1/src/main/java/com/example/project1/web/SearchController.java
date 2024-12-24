@@ -105,5 +105,8 @@ public class SearchController {
         model.addAttribute("companyData", companyData);
         return "company";
     }
-
+    @GetMapping("/register")
+    public String getRegistrationPage() {
+        return "register";
+    }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+</html> <!DOCTYPE html>
 <html lang="mk">
 <head>
     <meta charset="UTF-8">
@@ -18,13 +18,9 @@
 </nav>
 
 <div class="container">
-    <form action="register" method="GET">
-            <button type="submit" class="Signin">Sign in</button>
-        </form>
-          
-    <div class="login-box">
-        <h2>Log in</h2>
-        <form id="loginForm">
+    <div class="signin-box">
+        <h2>Sign in</h2>
+        <form id="signinForm">
             <div class="textbox">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter username">
@@ -33,34 +29,42 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter password">
             </div>
+            <div class="textbox">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+            </div>
             <button type="submit" class="btn">Done</button>
         </form>
     </div>
     </div>
     <script>
-        document.getElementById("loginForm").addEventListener("submit", async function (event) {
+        document.getElementById("signinForm").addEventListener("submit", async function (event) {
             event.preventDefault();
-            
+    
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
-            
+            const confirmPassword = document.getElementById("confirmPassword").value;
+    
             try {
-                const response = await fetch("http://localhost:8080/api/users/login", {
+                const response = await fetch("http://localhost:8080/api/users/register", {
                     method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: new URLSearchParams({ username, password })
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({ username, password, confirmPassword }),
                 });
     
                 if (response.ok) {
-                    // Успешно логирање
-                    window.location.href = "/today";
+                    // Успешна регистрација
+                    alert("Регистрацијата е успешна! Пренасочување кон логин страната...");
+                    window.location.href = "/";
                 } else {
-                    // Неуспешно логирање
+                    // Неуспешна регистрација
                     const errorMessage = await response.text();
                     alert(errorMessage);
                 }
             } catch (error) {
-                console.error("Грешка при логирање:", error);
+                console.error("Грешка при регистрација:", error);
                 alert("Настана грешка. Обиди се повторно!");
             }
         });
@@ -117,11 +121,12 @@
         vertical-align: middle;
     }
     .container {
+        display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    .login-box {
+    .signin-box {
         background-color: #293241;
         padding: 40px;
         border-radius: 8px;
@@ -174,14 +179,7 @@
     .btn:hover {
         background-color: #e1441a;
     }
-    .Signin{
-        background-color: #f4511e;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+
 </style>
 </body>
+</html>
