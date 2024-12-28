@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
-         body {
+        body {
             font-family: 'Itim', cursive, sans-serif;
             background-color: #3D5A80;
             color: #ffffff;
@@ -46,8 +46,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column; /* Optional if stacking vertically */
-}
-
+    }
     </style>
 </head>
 <body>
@@ -58,11 +57,35 @@
             <h1 class="text-center">Company Price Trends</h1>
         </div>
     </div>
+    <div class="d-flex justify-content-center align-items-center vh-50">
+        <div class="card p-4 shadow-lg" style="width: 400px;">
+            <h4 class="card-title text-center mb-4">Select a Company</h4>
+            <form method="get" action="/analyzecode">
+                <div class="mb-3">
+                    <label for="companyId" class="form-label">Company</label>
+                    <select
+                            id="companyId"
+                            name="companyId"
+                            class="form-select"
+                            required>
+                        <option th:each="company : ${companies}"
+                                th:value="${company.id}"
+                                th:text="${company.companyCode}"></option>
+                    </select>
+                </div>
+                <div class="d-grid">
+                    <button type="button" class="btn btn-primary" onclick="sendSelectedCode(event)">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    <!-- Company Data -->
-    <div th:if="${companyData != null && !companyData.isEmpty()}">
-        <div class="center" th:each="data : ${companyData}">
-            <div class="col-12 col-md-6 mb-5">
+     <!-- Company Data -->
+     <div th:if="${companyData != null && !companyData.isEmpty()}">
+        <div class="row" th:each="data : ${companyData}">
+            <div class="col-12 mb-5">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h4 class="card-title text-center" th:text="${data.companyCode} + ' - Price Trend'">Company Name</h4>
@@ -70,6 +93,7 @@
                             Last Updated:
                             <span th:text="${#temporals.format(data.lastUpdated, 'dd-MM-yyyy')}">Unknown Date</span>
                         </p>
+                        <!-- Chart and Buttons Layout -->
                         <div class="chart-row">
                             <!-- Chart Column -->
                             <div class="chart-column">
@@ -106,6 +130,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -126,7 +151,36 @@
 
 <!-- JavaScript for Chart.js and Predict Button -->
 <script th:inline="javascript">
-    /*<![CDATA[*/
+    function sendSelectedCode(event) {
+    event.preventDefault(); // Prevent form submission
+
+    const selectedCompanyId = document.getElementById('companyId').value;
+    console.log("Selected Company ID: " + selectedCompanyId); // Display the selected value
+
+    // Send the selected value to the server
+    fetch('/api/process-selected-code', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ selectedCompanyId }) // Sending the selected code as JSON
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to process code");
+        }
+        return response.json();
+    })
+    .then(response => {
+        console.log("Code processed:", response);
+        alert("Code processed successfully");
+    })
+    .catch(error => {
+        console.error("Error processing code:", error);
+        alert("Error processing code");
+    });
+}
+    
     document.addEventListener('DOMContentLoaded', function () {
         const companyData = /*[[${companyData}]]*/ [];
         if (!companyData || companyData.length === 0) {
@@ -175,6 +229,7 @@
             });
         });
 
+        // Handle Technical Analysis Button Clicks
         document.querySelectorAll(".predict-btn").forEach(function (button) {
             button.addEventListener("click", function () {
                 const companyId = button.getAttribute("data-company-id");
@@ -277,7 +332,7 @@
             });
         });
     });
-    /*]]>*/
+    
 </script>
 
 <!-- Bootstrap JS -->

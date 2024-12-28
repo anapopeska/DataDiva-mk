@@ -14,7 +14,14 @@
         <div class="text">
         <a class="navbar-brand" href="#">DataDiva-MK</a></div>
     </div>
+    <div id="navbarSupportedContent">
+        <ul class="navbar-nav d-flex" style="list-style-type: none;">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/help">Help</a>
+            </li>
+        </ul>
 
+    </div>
 </nav>
 
 <div class="container">
@@ -27,11 +34,11 @@
         <form id="loginForm">
             <div class="textbox">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter username">
+                <input type="text" id="username" name="username" placeholder="Enter username"required>
             </div>
             <div class="textbox">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter password">
+                <input type="password" id="password" name="password" placeholder="Enter password"required>
             </div>
             <button type="submit" class="btn">Done</button>
         </form>
@@ -60,8 +67,8 @@
                     alert(errorMessage);
                 }
             } catch (error) {
-                console.error("Грешка при логирање:", error);
-                alert("Настана грешка. Обиди се повторно!");
+                console.error("Login error:", error);
+                alert("An error occurred. Please try again!");
             }
         });
     </script>
@@ -108,11 +115,28 @@
 
     .navbar a.navbar-brand {
         color: #EE6C4D;
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-left: 10px;
+        font-size: 1.8rem;
+        font-weight: bold;
         text-decoration: none;
     }
+    .navbar a.nav-link {
+        color: #EE6C4D;
+        font-size: 2rem;
+        padding-right: 30px;
+    }
+    
+    .navbar-nav {
+    flex-direction: row !important;
+    font-family: 'Itim', cursive, sans-serif;
+        color: #ffffff;
+        line-height: 1.6;
+        margin: 0;
+}
+
+ul li {
+    margin-right: 15px; /* Add spacing between menu items */
+    
+}
     .text{
         vertical-align: middle;
     }

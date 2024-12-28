@@ -24,9 +24,11 @@ public class UserController {
     public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
         Optional<User> user = userService.findByUsername(username);
         if (user.isPresent() && user.get().getPassword().equals(password)) {
-            return ResponseEntity.ok("Успешно логирање!");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Грешно корисничко име или лозинка!");
+            return ResponseEntity.ok("Login successful!");
+        } else if(user.isPresent()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect password!");
+        }else{
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User does not exist");
         }
     }
     @GetMapping
@@ -40,15 +42,15 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String confirmPassword) {
         if (!password.equals(confirmPassword)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Грешнa лозинка!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Passwords do not match!");
         }
 
         if (userService.findByUsername(username).isPresent()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Грешнa лозинка!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Username is taken");
         }
 
         userService.registerUser(username, password);
-        return ResponseEntity.ok("Успешно логирање!");
+        return ResponseEntity.ok("Login successful!");
     }
     
 }

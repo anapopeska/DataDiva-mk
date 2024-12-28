@@ -3,8 +3,8 @@ package com.example.project1.web;
 import com.example.project1.model.CompanyModel;
 import com.example.project1.model.CompanyHistoryPriceModel;
 import com.example.project1.repository.CompanyHistoryPriceRepository;
+import com.example.project1.service.PricePredictionService;
 import com.example.project1.service.SearchService;
-import com.example.project1.service.LSTMService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
 public class SearchController {
 
     private final SearchService searchService;
-    private final LSTMService LSTMService;
+    private final PricePredictionService pricePredictionService;
+
     private final CompanyHistoryPriceRepository companyHistoryPriceRepository;
     @GetMapping("/")
     public String getLogPage(Model model) {
@@ -108,5 +109,15 @@ public class SearchController {
     @GetMapping("/register")
     public String getRegistrationPage() {
         return "register";
+    }
+    @GetMapping("/help")
+    public String getHelpPage() {
+        return "help";
+    }
+
+    @GetMapping("/analyzecode")
+    public String getAnalyzePage(Model model) {
+        model.addAttribute("companies", searchService.findAll());
+        return "analyzecode";
     }
 }

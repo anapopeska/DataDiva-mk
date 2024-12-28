@@ -19,11 +19,16 @@ class HistoricalData(BaseModel):
     data: List[HistoricalDataItem]
 
 
-# Prediction function using ARIMA
 def predict_next_month_price(historical_data: pd.DataFrame) -> float:
-    # Set the date as the index
+    # Set the date as the index and ensure it's in datetime format
     historical_data['date'] = pd.to_datetime(historical_data['date'])
     historical_data.set_index('date', inplace=True)
+
+    # Check for missing values and drop them
+    historical_data = historical_data.dropna()
+
+    if len(historical_data) < 30:
+        raise ValueError("Not enough data to make a reliable prediction.")
 
     # Apply ARIMA model
     model = ARIMA(historical_data['average_price'], order=(5, 1, 0))  # Adjust order if needed
@@ -34,6 +39,7 @@ def predict_next_month_price(historical_data: pd.DataFrame) -> float:
 
     # Return the mean forecast price for the next month
     return forecast.mean()
+
 
 
 # Define an endpoint for predicting the stock price
