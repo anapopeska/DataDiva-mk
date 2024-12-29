@@ -1,0 +1,23 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://github.com/MarijaIsailovska/domashna3.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "funkcionalnost1"]
+	remote = origin
+	merge = refs/heads/funkcionalnost1
+[remote "new-remote"]
+	url = https://github.com/anapopeska/DataDiva-mk
+	fetch = +refs/heads/*:refs/remotes/new-remote/*
+[branch "vizuelizacija"]
+	vscode-merge-base = origin/funkcionalnost1
+[branch "login/registration"]
+	remote = new-remote
+	merge = refs/heads/login/registration
+[branch "login-signin"]
+	vscode-merge-base = new-remote/login/registration
