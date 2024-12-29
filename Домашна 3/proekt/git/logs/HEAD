@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 MarijaIsailovska <marija.isailovska2003@gmail.com> 1734744587 +0100	commit (initial): Интеграција на DataDiva-mk во проектниот репозиториум
+ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 MarijaIsailovska <marija.isailovska2003@gmail.com> 1734745287 +0100	checkout: moving from funkcionalnost1 to func_p2_1
+ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 0000000000000000000000000000000000000000 MarijaIsailovska <marija.isailovska2003@gmail.com> 1734746532 +0100	Branch: renamed refs/heads/func_p2_1 to refs/heads/vizuelizacija
+0000000000000000000000000000000000000000 ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 MarijaIsailovska <marija.isailovska2003@gmail.com> 1734746532 +0100	Branch: renamed refs/heads/func_p2_1 to refs/heads/vizuelizacija
+ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 MarijaIsailovska <marija.isailovska2003@gmail.com> 1734920069 +0100	checkout: moving from vizuelizacija to login/registration
+ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 MarijaIsailovska <marija.isailovska2003@gmail.com> 1735059095 +0100	reset: moving to new-remote/login/registration
+ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 MarijaIsailovska <marija.isailovska2003@gmail.com> 1735062867 +0100	checkout: moving from login/registration to login-signin
+ec6f18bcc286cf4430e9af1bfe6e8d30c7fe14b1 6f9bbf9107f07cc4fd904f8873a2af597f1c3772 MarijaIsailovska <marija.isailovska2003@gmail.com> 1735063780 +0100	commit: Додавање на login и registration функционалности
+6f9bbf9107f07cc4fd904f8873a2af597f1c3772 6f9bbf9107f07cc4fd904f8873a2af597f1c3772 MarijaIsailovska <marija.isailovska2003@gmail.com> 1735064623 +0100	checkout: moving from login-signin to korisnichka_poddrshka
