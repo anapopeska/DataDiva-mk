@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-left">
+        <img src="Logo.png" alt="DataDiva-MK">
+        <div class="text">
+        <a class="navbar-brand" href="#">DataDiva-MK</a></div>
+    </div>
+
+</nav>
+
+<div class="container">
+    <div class="login-box">
+        <h2>Log in</h2>
+        <form action="/today" method="GET">
+        <div class="textbox">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter username">
+            </div>
+            <div class="textbox">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn">Done</button>
+        </form>
+    </div>
+</div>
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Itim', cursive;
+        background-color: #3D5A80;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: #3D5A80;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 100%;
+        height: 100px;
+        z-index: 1000;
+    }
+    .navbar-left{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+    .navbar img {
+        width: 100px;
+        height: auto;
+    }
+
+    .navbar a.navbar-brand {
+        color: #EE6C4D;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-left: 10px;
+        text-decoration: none;
+    }
+    .text{
+        vertical-align: middle;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-box {
+        background-color: #293241;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        width: 800px;
+    }
+
+    h2 {
+        color: #f4511e;
+        margin-bottom: 30px;
+    }
+
+    .textbox {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .textbox label {
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .textbox input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #555;
+        border-radius: 4px;
+        background-color: #333;
+        color: white;
+    }
+
+    .textbox input:focus {
+        border-color: #f4511e;
+        outline: none;
+    }
+
+    .btn {
+        background-color: #f4511e;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .btn:hover {
+        background-color: #e1441a;
+    }
+
+</style>
+</body>
+</html>
