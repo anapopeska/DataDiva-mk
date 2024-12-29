@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Data</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Вашиот CSS стил */
+  </style>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Itim', cursive, sans-serif;
+    background-color: #3D5A80;
+    color: #ffffff;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Navbar Styling */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #293241;
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar img {
+    width: 50px;
+    height: auto;
+    margin-right: 15px;
+  }
+
+  .navbar a.navbar-brand {
+    color: #EE6C4D;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .navbar a.nav-link {
+    color: #EE6C4D;
+    font-size: 1rem;
+  }
+
+
+  ul li {
+    display: inline-block; /* Make items sit side by side */
+    margin-right: 15px; /* Add spacing between items */
+  }
+
+  ul li a {
+    text-decoration: none;
+  }
+
+  /* Content Styling */
+  .container {
+    margin: 30px auto;
+    max-width: 1100px;
+  }
+
+  .content {
+    background-color: #293241;
+    padding: 40px;
+    border-radius: 10px;
+
+  }
+
+  h2 {
+    color: #EE6C4D;
+    margin-bottom: 20px;
+  }
+
+  /* Table Styling */
+  .table {
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .table th {
+    border: 2px solid #3D5A80;
+    padding: 10px;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .table td {
+    border: 2px solid #3D5A80;
+    padding: 10px;
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #293241;
+  }
+
+  .table-striped tbody tr:nth-of-type(even) {
+    background-color: #293241;
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: #3D5A80;
+  }
+
+  /* Responsive Table */
+  @media (max-width: 768px) {
+    .table {
+      font-size: 14px;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .navbar a.navbar-brand {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <img src="Logo.png" alt="DataDiva-MK">
+    <div class="text">
+      <a class="navbar-brand" href="#">DataDiva-MK</a></div>
+  </div>
+  <div class="navbar-bar" >
+    <ul>
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/today">Home</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/index">Compare</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/today">Analyze</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/view">View</a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <div class="content">
+    <h2 class="text-center mb-4">Company's Data</h2>
+
+    <!-- Селект за избор на компанија -->
+    <!-- форма со селектор за избор на код на компанија -->
+    <form action="/view" method="get">
+      <div>
+        <label for="companyCode">Select Company Code:</label>
+        <select id="companyCode" name="companyCode" required>
+          <option value="">-- Select Company Code --</option>
+          <!-- Генерирање на опции со податоци од серверот -->
+          <th:block th:each="company : ${companies}">
+            <option th:value="${company.companyCode}" th:text="${company.companyCode}"></option>
+          </th:block>
+        </select>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+
+    <!-- Табела за прикажување на податоци -->
+    <div class="table-responsive" th:if="${historyData}">
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+          <th>Date</th>
+          <th>Last Transaction Price</th>
+          <th>Max Price</th>
+          <th>Min Price</th>
+          <th>Average Price</th>
+          <th>Percentage Change</th>
+          <th>Quantity</th>
+          <th>Turnover Best</th>
+          <th>Total Turnover</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="history : ${historyData}">
+          <tr>
+            <td th:text="${history.date}"></td>
+            <td th:text="${history.lastTransactionPrice}"></td>
+            <td th:text="${history.maxPrice}"></td>
+            <td th:text="${history.minPrice}"></td>
+            <td th:text="${history.averagePrice}"></td>
+            <td th:text="${history.percentageChange} + '%'"></td>
+            <td th:text="${history.quantity}"></td>
+            <td th:text="${history.turnoverBest}"></td>
+            <td th:text="${history.totalTurnover}"></td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
