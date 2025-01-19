@@ -1,0 +1,76 @@
+version: "3.8"
+
+services:
+  flask-api:
+    image: domasna2-flask-api
+    container_name: domasna2-flask-api
+    build:
+      context: ./ai/flask-api
+      dockerfile: Dockerfile
+    environment:
+      FLASK_ENV: development
+    ports:
+      - "5001:5000"
+    depends_on:
+      - postgres
+
+  fastapi-predictor:
+    image: domasna2-fastapi-predictor
+    container_name: domasna2-fastapi-predictor
+    build:
+      context: ./ai/fastapi-predictor
+      dockerfile: Dockerfile
+    environment:
+      API_ENV: production
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  customer-service:
+    image: domasna2-customer-service
+    container_name: domasna2-customer-service
+    build:
+      context: ./customer-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - flask-api
+
+  project1:
+    image: domasna2-project1
+    container_name: domasna2-project1
+    build:
+      context: ./project1
+      dockerfile: Dockerfile
+    ports:
+      - "9091:9091"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13
+    container_name: domasna2-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ajiraM555<<<
+      POSTGRES_DB: project1
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
+    driver: local
+#
+#  spring.application.name=project1
+#  spring.datasource.url=jdbc:postgresql://localhost:5432/dians
+#  spring.datasource.username=postgres
+#  spring.datasource.password=ajiraM555<<<
+#  spring.jpa.hibernate.ddl-auto=update
+#  spring.jpa.show-sql=false
+#  spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+#  spring.jpa.properties.hibernate.format_sql=true
+#  support.service.url=http://localhost:8081

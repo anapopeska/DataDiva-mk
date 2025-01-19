@@ -1,0 +1,10 @@
+uvicorn[standard]
+Flask==2.0.0
+pydantic
+pandas
+statsmodels
+uvicorn
+werkzeug==2.0.3
+requests
+beautifulsoup4
+vaderSentiment
