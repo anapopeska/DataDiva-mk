@@ -1,10 +1,10 @@
 package com.example.project1.service;
 
 import com.example.project1.model.CompanyModel;
-import com.example.project1.model.CompanyHistoryPriceModel;
+import com.example.project1.model.CompanyHistoricalDataModel;
 import com.example.project1.model.dto.NLPResponse;
-import com.example.project1.repository.CompanyModelRepository;
-import com.example.project1.repository.CompanyHistoryPriceRepository;
+import com.example.project1.repository.CompanyRepository;
+import com.example.project1.repository.CompanyHistoricalDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 public class PricePredictionService {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final CompanyHistoryPriceRepository historicalDataRepository;
-    private final CompanyModelRepository companyRepository;
+    private final CompanyHistoricalDataRepository historicalDataRepository;
+    private final CompanyRepository companyRepository;
 
     private final String technicalAnalysisUrl = "http://127.0.0.1:5000/generate_signal";
     private final String nlpUrl = "http://127.0.0.1:5000/analyze";
@@ -31,11 +31,11 @@ public class PricePredictionService {
 
     public String technicalAnalysis(Long companyId) {
         // Retrieve historical data from the repository
-        List<CompanyHistoryPriceModel> data = historicalDataRepository.findByCompanyId(companyId);
+        List<CompanyHistoricalDataModel> data = historicalDataRepository.findByCompanyId(companyId);
 
         // Prepare the data to send to the Python API
         List<Map<String, Object>> payload = new ArrayList<>();
-        for (CompanyHistoryPriceModel d : data) {
+        for (CompanyHistoricalDataModel d : data) {
             Map<String, Object> record = new HashMap<>();
             record.put("date", d.getDate().toString());
             record.put("close", d.getLastTransactionPrice());
@@ -106,7 +106,7 @@ public class PricePredictionService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        List<CompanyHistoryPriceModel> data = historicalDataRepository.findByCompanyIdAndDateBetween(companyId, LocalDate.now().minusMonths(3), LocalDate.now());;
+        List<CompanyHistoricalDataModel> data = historicalDataRepository.findByCompanyIdAndDateBetween(companyId, LocalDate.now().minusMonths(3), LocalDate.now());;
 
         Map<String, Object> requestBody = Map.of("data", mapToRequestData(data));
 
@@ -117,7 +117,7 @@ public class PricePredictionService {
         return response != null ? response.get("predicted_next_month_price") : null;
     }
 
-    public static List<Map<String, Object>> mapToRequestData(List<CompanyHistoryPriceModel> historicalDataEntities) {
+    public static List<Map<String, Object>> mapToRequestData(List<CompanyHistoricalDataModel> historicalDataEntities) {
         return historicalDataEntities.stream().map(entity -> {
             Map<String, Object> dataMap = new HashMap<>();
             dataMap.put("date", entity.getDate().toString());

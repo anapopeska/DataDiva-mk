@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table(name = "historical_data")
 @Data
 @NoArgsConstructor
-public class CompanyHistoryPriceModel {
+public class CompanyHistoricalDataModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +47,7 @@ public class CompanyHistoryPriceModel {
     @JoinColumn(name = "company_id")
     private CompanyModel company;
 
-    public CompanyHistoryPriceModel(LocalDate date, Double lastTransactionPrice, Double maxPrice, Double minPrice, Double averagePrice, Double percentageChange, Integer quantity, Integer turnoverBest, Integer totalTurnover) {
+    public CompanyHistoricalDataModel(LocalDate date, Double lastTransactionPrice, Double maxPrice, Double minPrice, Double averagePrice, Double percentageChange, Integer quantity, Integer turnoverBest, Integer totalTurnover) {
         this.date = date;
         this.lastTransactionPrice = lastTransactionPrice;
         this.maxPrice = maxPrice;

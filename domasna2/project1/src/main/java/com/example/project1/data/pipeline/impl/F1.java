@@ -2,7 +2,7 @@ package com.example.project1.data.pipeline.impl;
 
 import com.example.project1.data.pipeline.Filter;
 import com.example.project1.model.CompanyModel;
-import com.example.project1.repository.CompanyModelRepository;
+import com.example.project1.repository.CompanyRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,9 +13,9 @@ import java.util.List;
 
 public class F1 implements Filter<List<CompanyModel>> {
 
-    private final CompanyModelRepository companyModelRepository;
+    private final CompanyRepository companyModelRepository;
 
-    public F1(CompanyModelRepository companyModelRepository) {
+    public F1(CompanyRepository companyModelRepository) {
         this.companyModelRepository = companyModelRepository;
     }
 

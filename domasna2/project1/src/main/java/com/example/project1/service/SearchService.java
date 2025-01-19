@@ -1,9 +1,9 @@
 package com.example.project1.service;
 
-import com.example.project1.model.CompanyHistoryPriceModel;
+import com.example.project1.model.CompanyHistoricalDataModel;
 import com.example.project1.model.CompanyModel;
-import com.example.project1.repository.CompanyHistoryPriceRepository;
-import com.example.project1.repository.CompanyModelRepository;
+import com.example.project1.repository.CompanyHistoricalDataRepository;
+import com.example.project1.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchService {
 
-    private final CompanyModelRepository companyModelRepository;
-    private final CompanyHistoryPriceRepository companyHistoryPriceRepository;
+    private final CompanyRepository companyModelRepository;
+    private final CompanyHistoricalDataRepository companyHistoryPriceRepository;
 
     public List<CompanyModel> findAll() {
         return companyModelRepository.findAll();
@@ -25,10 +25,10 @@ public class SearchService {
         return companyModelRepository.findById(id).orElseThrow(Exception::new);
     }
 
-    public List<CompanyHistoryPriceModel> findAllToday() {
+    public List<CompanyHistoricalDataModel> findAllToday() {
         return companyHistoryPriceRepository.findAllByDate(LocalDate.now());
     }
-    public List<CompanyHistoryPriceModel> findHistoryByCompanyCode(String companyCode) {
+    public List<CompanyHistoricalDataModel> findHistoryByCompanyCode(String companyCode) {
         return companyHistoryPriceRepository.findByCompanyCompanyCode(companyCode);
     }
 

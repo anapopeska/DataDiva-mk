@@ -24,7 +24,7 @@ public class CompanyModel {
     private LocalDate lastUpdated;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
-    private List<CompanyHistoryPriceModel> historicalData;
+    private List<CompanyHistoricalDataModel> historicalData;
 
     public CompanyModel(String companyCode) {
         this.companyCode = companyCode;

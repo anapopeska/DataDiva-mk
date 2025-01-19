@@ -1,8 +1,8 @@
 package com.example.project1.web;
 
 import com.example.project1.model.CompanyModel;
-import com.example.project1.model.CompanyHistoryPriceModel;
-import com.example.project1.repository.CompanyHistoryPriceRepository;
+import com.example.project1.model.CompanyHistoricalDataModel;
+import com.example.project1.repository.CompanyHistoricalDataRepository;
 import com.example.project1.service.PricePredictionService;
 import com.example.project1.service.SearchService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class SearchController {
     private final SearchService searchService;
     private final PricePredictionService pricePredictionService;
 
-    private final CompanyHistoryPriceRepository companyHistoryPriceRepository;
+    private final CompanyHistoricalDataRepository companyHistoryPriceRepository;
     @GetMapping("/")
     public String getLogPage(Model model) {
         return "log";
@@ -47,7 +47,7 @@ public class SearchController {
     public String showViewPage(@RequestParam(required = false) String companyCode, Model model) {
         if (companyCode != null && !companyCode.isEmpty()) {
             // Повик од репозиториумот за наоѓање на историја по companyCode
-            List<CompanyHistoryPriceModel> historyData = companyHistoryPriceRepository.findByCompanyCompanyCode(companyCode);
+            List<CompanyHistoricalDataModel> historyData = companyHistoryPriceRepository.findByCompanyCompanyCode(companyCode);
             model.addAttribute("historyData", historyData);
         }
 
@@ -56,31 +56,6 @@ public class SearchController {
         return "view";
     }
 
-    // @GetMapping("visualize")
-    // public String getCompanyPage(@RequestParam(name = "companyId") Long companyId, Model model) throws Exception {
-    //     List<Map<String, Object>> companyData = new ArrayList<>();
-    //     CompanyModel company = searchService.findById(companyId);
-
-    //     Map<String, Object> data = new HashMap<>();
-    //     data.put("companyCode", company.getCompanyCode());
-    //     data.put("lastUpdated", company.getLastUpdated());
-
-    //     List<LocalDate> dates = new ArrayList<>();
-    //     List<Double> prices = new ArrayList<>();
-
-    //     for (CompanyHistoryPriceModel historicalData : company.getHistoricalData()) {
-    //         dates.add(historicalData.getDate());
-    //         prices.add(historicalData.getLastTransactionPrice());
-    //     }
-
-    //     data.put("dates", dates);
-    //     data.put("prices", prices);
-    //     data.put("id", company.getId());
-    //     companyData.add(data);
-
-    //     model.addAttribute("companyData", companyData);
-    //     return "visualize";
-    // }
     @GetMapping("/company")
     public String getCompanyPage(@RequestParam(name = "companyId") Long companyId, Model model) throws Exception {
         List<Map<String, Object>> companyData = new ArrayList<>();
@@ -93,7 +68,7 @@ public class SearchController {
         List<LocalDate> dates = new ArrayList<>();
         List<Double> prices = new ArrayList<>();
 
-        for (CompanyHistoryPriceModel historicalData : company.getHistoricalData()) {
+        for (CompanyHistoricalDataModel historicalData : company.getHistoricalData()) {
             dates.add(historicalData.getDate());
             prices.add(historicalData.getLastTransactionPrice());
         }

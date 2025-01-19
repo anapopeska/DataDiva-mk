@@ -3,9 +3,9 @@ package com.example.project1.data.pipeline.impl;
 import com.example.project1.data.Transformer;
 import com.example.project1.data.pipeline.Filter;
 import com.example.project1.model.CompanyModel;
-import com.example.project1.model.CompanyHistoryPriceModel;
-import com.example.project1.repository.CompanyModelRepository;
-import com.example.project1.repository.CompanyHistoryPriceRepository;
+import com.example.project1.model.CompanyHistoricalDataModel;
+import com.example.project1.repository.CompanyRepository;
+import com.example.project1.repository.CompanyHistoricalDataRepository;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,12 +21,12 @@ import java.util.Locale;
 
 public class F2 implements Filter<List<CompanyModel>> {
 
-    private final CompanyModelRepository companyModelRepository;
-    private final CompanyHistoryPriceRepository companyHistoryPriceRepository;
+    private final CompanyRepository companyModelRepository;
+    private final CompanyHistoricalDataRepository companyHistoryPriceRepository;
 
     private static final String HISTORICAL_DATA_URL = "https://www.mse.mk/mk/stats/symbolhistory/";
 
-    public F2(CompanyModelRepository companyModelRepository, CompanyHistoryPriceRepository companyHistoryPriceRepository) {
+    public F2(CompanyRepository companyModelRepository, CompanyHistoricalDataRepository companyHistoryPriceRepository) {
         this.companyModelRepository = companyModelRepository;
         this.companyHistoryPriceRepository = companyHistoryPriceRepository;
     }
@@ -90,7 +90,7 @@ public class F2 implements Filter<List<CompanyModel>> {
                                 company.setLastUpdated(date);
                             }
 
-                            CompanyHistoryPriceModel companyHistoryPriceModel = new CompanyHistoryPriceModel(
+                            CompanyHistoricalDataModel companyHistoryPriceModel = new CompanyHistoricalDataModel(
                                     date, lastTransactionPrice, maxPrice, minPrice, averagePrice, percentageChange,
                                     quantity, turnoverBest, totalTurnover);
                             companyHistoryPriceModel.setCompany(company);
